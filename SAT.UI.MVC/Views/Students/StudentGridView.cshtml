@@ -30,7 +30,7 @@ else
         @foreach (var item in Model)
         {
 
-            <div class="card col-md-3" style="width: 18rem;">
+            <div class="card col-md-3" style="width: 18rem; margin: 2%;">
                 <div class="other-border">
                     <a href="@Url.Action("Details","Students", new { id=item.StudentId})"> <img src="~/Content/imgStore/@item.PhotoUrl" alt="Student" title="@item.FirstName" style="height:300px; width:100%" /></a>
                     <div class="card-body">
