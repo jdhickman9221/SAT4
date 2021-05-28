@@ -63,19 +63,27 @@ namespace SAT.UI.MVC.Controllers
                 string ext = file.Substring(file.LastIndexOf("."));
                 string[] goodExts = { ".jpg", ".jpeg", ".png", ".gif" };
 
-                if (goodExts.Contains(ext.ToLower()) && StudentPhoto.ContentLength <= 4194304)                {
+                if (goodExts.Contains(ext.ToLower()) && StudentPhoto.ContentLength <= 4194304)
+                {
                     //Create a new file name (use a GUID)
                     file = Guid.NewGuid() + ext;
 
 
 
-                    #region Resize Image                    //this informs the program to save the image to this location in our file structure.
-                    string savePath = Server.MapPath("~/Content/imgStore/");                    Image convertedImage = Image.FromStream(StudentPhoto.InputStream);                    int maxImageSize = 500;                    int maxThumbSize = 100;                    ImageServices.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
+                    #region Resize Image
+                    //this informs the program to save the image to this location in our file structure.
+                    string savePath = Server.MapPath("~/Content/imgStore/");
+                    Image convertedImage = Image.FromStream(StudentPhoto.InputStream);
+                    int maxImageSize = 500;
+                    int maxThumbSize = 100;
+
+                    ImageServices.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
 
 
 
 
-                    #endregion                }
+                    #endregion
+                }
 
 
             }

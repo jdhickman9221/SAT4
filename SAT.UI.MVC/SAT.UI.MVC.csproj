@@ -510,6 +510,10 @@
     <Content Include="Views\StudentStatus\Details.cshtml" />
     <Content Include="Views\StudentStatus\Edit.cshtml" />
     <Content Include="Views\StudentStatus\Index.cshtml" />
+    <Content Include="Views\Home\_EmailConfirmation.cshtml" />
+    <Content Include="Views\Students\StudentGridView.cshtml" />
+    <Content Include="Views\Cours\Active.cshtml" />
+    <Content Include="Views\Cours\NotActive.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
