@@ -1,70 +1,50 @@
 ﻿@model IEnumerable<SAT.DATA.EF.Cours>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Sith Courses";
 }
-<br/><br/>
-<br/><br/>
-<h2>Index</h2>
+<br /><br />
+<br /><br />
 
-<p>
+
+
+<h2 class="gallery-title text-center">@ViewBag.Title</h2>
+@if (User.IsInRole("Admin") && Request.IsAuthenticated)
+{
+    <a href="@Url.Action("Active","Cours")" class="">Active Classes</a>
+    <a href="@Url.Action("NotActive","Cours")" class="">Retired Classes</a>
     @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreditHours)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Curriculum)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhotoURL)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreditHours)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Curriculum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhotoURL)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CourseId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CourseId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CourseId })
-        </td>
-    </tr>
 }
 
-</table>
+<div class="grid-bg">
+    <div id="productGrid" class="row">
+
+        @foreach (var item in Model)
+        {
+
+            <div class="card col-md-3" style="width: 18rem;">
+                <div class="other-border">
+
+                    @*<img src="~/Content/imgStore/t_@item.PhotoURL" alt="@item.CourseName" @*style="height:; width:;"*@
+
+                    <div class="card-body">
+                        <h5 class="card-title">@item.CourseName</h5>
+                        <hr />
+                        <p class="card-text">Curriculum: @item.Curriculum</p>
+                        <p class="card-info">Credit Hours: @item.CreditHours </p>
+                        @*<p class="card-info">@item.CourseDescription</p>*@
+                    </div>
+                </div>
+                @if (User.IsInRole("Admin") && Request.IsAuthenticated)
+                {
+                    <a href="@Url.Action("Details","Cours", new { id=item.CourseId})">
+                        Details
+                    </a>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CourseId })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
+                }
+            </div>
+        }
+    </div>
+</div>

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SAT.DATA.EF;
+using SAT.UI.MVC.Utilitites;
 
 namespace SAT.UI.MVC.Controllers
 {
@@ -65,8 +67,34 @@ namespace SAT.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CourseId,CourseName,CourseDescription,CreditHours,Curriculum,Notes,IsActive,PhotoURL")] Cours cours)
+        public ActionResult Create([Bind(Include = "CourseId,CourseName,CourseDescription,CreditHours,Curriculum,Notes,IsActive,PhotoURL")] Cours cours, HttpPostedFileBase coursPhoto)
         {
+            string file = "noImage";
+            if (coursPhoto != null)
+            {
+                file = coursPhoto.FileName;
+
+                string ext = file.Substring(file.LastIndexOf("."));
+                string[] goodExts = { ".jpg", ".jpeg", ".png", ".gif" };
+
+                if (goodExts.Contains(ext.ToLower()) && coursPhoto.ContentLength <= 4194304)
+                {
+                    file = Guid.NewGuid() + ext;
+
+
+                    string savePath = Server.MapPath("~/Content/imgStore/");
+                    Image convertedImage = Image.FromStream(coursPhoto.InputStream);
+                    int maxImageSize = 500;
+                    int maxThumbSize = 100;
+
+                    ImageServices.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
+                }
+
+            }
+
+            cours.PhotoURL = file;
+
+
             if (ModelState.IsValid)
             {
                 db.Courses.Add(cours);
@@ -98,14 +126,43 @@ namespace SAT.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CourseId,CourseName,CourseDescription,CreditHours,Curriculum,Notes,IsActive,PhotoURL")] Cours cours)
+        public ActionResult Edit([Bind(Include = "CourseId,CourseName,CourseDescription,CreditHours,Curriculum,Notes,IsActive,PhotoURL")] Cours cours, HttpPostedFileBase coursPhoto)
         {
             if (ModelState.IsValid)
             {
+                string file = "noImage.png";
+
+                if (coursPhoto != null)
+                {
+                    file = coursPhoto.FileName;
+                    string ext = file.Substring(file.LastIndexOf("."));
+                    string[] goodExts = { ".jpeg", ".jpg", ".png", ".gif", ".jfif" };
+                    if (goodExts.Contains(ext.ToLower()) && coursPhoto.ContentLength <= 4194304)
+                    {
+                        file = Guid.NewGuid() + ext;
+
+                        string savePath = Server.MapPath("~/Content/imgStore");
+                        Image convertedImage = Image.FromStream(coursPhoto.InputStream);
+                        int maxImageSize = 500;
+                        int maxThumbSize = 100;
+                        ImageServices.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
+
+                        if (cours.PhotoURL != null && cours.PhotoURL != "noImage.png")
+                        {
+                            string path = Server.MapPath("~/Content/imgStore");
+                            ImageServices.Delete(path, cours.PhotoURL);
+                        }
+
+                    }
+
+                }
+                cours.PhotoURL = file;
+
                 db.Entry(cours).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+           
             return View(cours);
         }
 
@@ -131,6 +188,10 @@ namespace SAT.UI.MVC.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Cours cours = db.Courses.Find(id);
+
+            string path = Server.MapPath("~/Content/imgStore/");
+            ImageServices.Delete(path, cours.PhotoURL);
+
             db.Courses.Remove(cours);
             db.SaveChanges();
             return RedirectToAction("Index");

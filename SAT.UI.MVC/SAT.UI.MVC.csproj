@@ -210,6 +210,9 @@
     <Content Include="Content\imgStore\t_f1f67ed6-bf67-4fd5-ade6-a5bd7b3dc1f9.jpg" />
     <Content Include="Content\img\about.jpg" />
     <Content Include="Content\img\apple-touch-icon.png" />
+    <Content Include="Content\img\bannerimg1.png" />
+    <Content Include="Content\img\bannerimg2.png" />
+    <Content Include="Content\img\bannerimg3.png" />
     <Content Include="Content\img\clients\client-1.png" />
     <Content Include="Content\img\clients\client-2.png" />
     <Content Include="Content\img\clients\client-3.png" />
@@ -217,6 +220,10 @@
     <Content Include="Content\img\clients\client-5.png" />
     <Content Include="Content\img\clients\client-6.png" />
     <Content Include="Content\img\favicon.png" />
+    <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\logo2.png" />
+    <Content Include="Content\img\logo3.png" />
+    <Content Include="Content\img\logo4.png" />
     <Content Include="Content\img\portfolio\portfolio-1.jpg" />
     <Content Include="Content\img\portfolio\portfolio-2.jpg" />
     <Content Include="Content\img\portfolio\portfolio-3.jpg" />

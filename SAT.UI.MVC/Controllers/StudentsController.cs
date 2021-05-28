@@ -134,7 +134,7 @@ namespace SAT.UI.MVC.Controllers
                 //1. Added HttpPostedFileBase as a param in the signature for this action that will allow us to capture the file in an obj to manipulate/save this to our file structure.
                 //2. We want to store the file name NoImage.png as a string, so we can plug it in where we need this prop to default to.
                 //3. Create an if statment, that if the book cover is not null and supplied a cover, reassign the file obj.
-                string file = "NoImage.png";
+                string file = "noImage.png";
                 if (StudentPhoto != null)
                 {
                     //The user has uploaded a file to include for that specific book.
@@ -157,9 +157,9 @@ namespace SAT.UI.MVC.Controllers
 
                         ImageServices.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
                         #endregion
-                        if (student.PhotoUrl != null && student.PhotoUrl != "NoImage.png")
+                        if (student.PhotoUrl != null && student.PhotoUrl != "noImage.png")
                         {
-                            string path = Server.MapPath("~/Content/imgstore/books/");
+                            string path = Server.MapPath("~/Content/imgstore/");
                             ImageServices.Delete(path, student.PhotoUrl);
                         }
                     }
