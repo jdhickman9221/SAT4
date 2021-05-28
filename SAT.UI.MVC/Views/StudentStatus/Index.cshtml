@@ -5,11 +5,14 @@
 }
 <br /><br />
 <br /><br />
-<h2>Index</h2>
+@if (User.IsInRole("Admin") && Request.IsAuthenticated)
+{
+      <div class="text-center">
+          @Html.ActionLink("Create New", "Create")
+      </div>
+}
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -23,19 +26,23 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SSName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SSDescription)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.SSID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.SSID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.SSID })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SSName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SSDescription)
+        </td>
+        @if (User.IsInRole("Admin") && Request.IsAuthenticated)
+        {
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.SSID }) 
+            @Html.ActionLink("Details", "Details", new { id = item.SSID }) 
+            @Html.ActionLink("Delete", "Delete", new { id = item.SSID })
+        </td>
+        }
+        
+    </tr>
     }
 
 </table>

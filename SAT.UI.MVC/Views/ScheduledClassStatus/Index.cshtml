@@ -5,11 +5,14 @@
 }
 <br /><br />
 <br /><br />
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.IsInRole("Admin") && Request.IsAuthenticated)
+{
+    <div class="text-center">
+        @Html.ActionLink("Create New", "Create")
+    </div>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -25,8 +28,8 @@
                 @Html.DisplayFor(modelItem => item.SCSName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.SCSID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.SCSID }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.SCSID }) 
+                @Html.ActionLink("Details", "Details", new { id = item.SCSID }) 
                 @Html.ActionLink("Delete", "Delete", new { id = item.SCSID })
             </td>
         </tr>

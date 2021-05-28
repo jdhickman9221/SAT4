@@ -11,14 +11,17 @@
 <h2 class="gallery-title text-center">@ViewBag.Title</h2>
 @if (User.IsInRole("Admin") && Request.IsAuthenticated)
 {
-    <a href="@Url.Action("Active","Cours")" class="">Active Classes</a>
-    <a href="@Url.Action("NotActive","Cours")" class="">Retired Classes</a>
+<div class="d-flex justify-content-center">
+    <a href="@Url.Action("Active","Cours")" style="padding-right: 2rem;">Active Classes</a>
+    <a href="@Url.Action("NotActive","Cours")" style="padding-right: 2rem;">Retired Classes</a>
     @Html.ActionLink("Create New", "Create")
+</div>
+ 
 
 }
 
 <div class="grid-bg">
-    <div id="productGrid" class="row">
+    <div id="productGrid" class="row d-flex justify-content-center">
 
         @foreach (var item in Model)
         {

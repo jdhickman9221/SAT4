@@ -5,16 +5,25 @@
 }
 <br /><br />
 <br /><br />
-<h2>StudentGridView</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<h2 class="gallery-title">
-    @ViewBag.Title
+@if (User.IsInRole("Admin") && Request.IsAuthenticated)
+{
+    <div class="text-center">
+        @Html.ActionLink("Create New", "Create")
+        <a href="@Url.Action("Index","Students")" style="padding-left: 2rem;">Table View</a>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <a href="@Url.Action("Index","Students")" class="">Table View</a>
+    </div>
+}
+<br /><br />
 
-</h2>
-<a href="@Url.Action("Index","Students")" class="btn btn-primary">Table View</a>
+
+
+
 <div class="grid-bg">
     <div id="productGrid" class="row">
 
@@ -30,12 +39,12 @@
                         <p class="card-text">@item.Major</p>
                         <p class="card-info">@item.Email </p>
                         <p class="card-info">@item.Phone</p>
-
-
                     </div>
                 </div>
             </div>
 
         }
+        <br/><br/>
+        <br/><br/>
     </div>
 </div>
