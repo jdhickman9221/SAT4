@@ -393,6 +393,9 @@
     <Content Include="Content\vendor\boxicons\fonts\boxicons.ttf" />
     <Content Include="Content\vendor\boxicons\fonts\boxicons.woff" />
     <Content Include="Content\vendor\boxicons\fonts\boxicons.woff2" />
+    <Content Include="configs\AppSecretKeys.config" />
+    <Content Include="configs\Connections.config" />
+    <Content Include=".gitignore" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
